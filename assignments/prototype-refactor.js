@@ -9,38 +9,37 @@ Prototype Refactor
 */
 
 // CODE here for your Lambda Classes
-function GameObject({ createdAt, dimensions }) {
-  this.createdAt = createdAt;
-  this.dimensions = dimensions.width * dimensions.height * dimensions.length;
+class GameObject {
+  constructor({ createdAt, dimensions }) {
+    this.createdAt = createdAt;
+    this.dimensions = dimensions;
+  }
+  destroy() {
+    return 'Object was removed from the game.';
+  }
 }
 
-GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game.';
+class CharacterStats extends GameObject {
+  constructor(attributes) {
+    super(attributes);
+    this.healthPoints = attributes.healthPoints;
+    this.name = attributes.name;
+  }
+  takeDamage() {
+    return `${this.name} took damage.`
+  }
 }
 
-function CharacterStats(attributes) {
-  GameObject.call(this, attributes);
-  this.healthPoints = attributes.healthPoints;
-  this.name = attributes.name;
-}
-
-CharacterStats.prototype = Object.create(GameObject.prototype);
-
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`
-}
-
-function Humanoid(attributes) {
-  CharacterStats.call(this, attributes);
-  this.team = attributes.team;
-  this.weapons = attributes.weapons;
-  this.language = attributes.language;
-}
-
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-
-Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`
+class Humanoid extends CharacterStats {
+  constructor(attributes) {
+    super(attributes);
+    this.team = attributes.team;
+    this.weapons = attributes.weapons;
+    this.language = attributes.language;
+  }
+  greet() {
+    return `${this.name} offers a greeting in ${this.language}`
+  }
 }
 
 // ======================================= CONSTRUCTOR TEST CODE
