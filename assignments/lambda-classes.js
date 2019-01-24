@@ -22,7 +22,7 @@ class Instructor extends Person {
   demo(subject = 'Cool Stuff') {
     console.log(`Today we are learning about ${subject}!`);
   }
-  grade({ student, subject }) {
+  grade(student, subject) {
     console.log(`${student.name} receives a perfect score on ${subject}`);
   }
 }
@@ -56,7 +56,7 @@ class ProjectManager extends Instructor {
   standUp(channel) {
     console.log(`${this.name} announces to ${channel}, @channel at handy times!​​​​​`);
   }
-  debugsCode({ student, subject }) {
+  debugsCode(student, subject) {
     console.log(`${this.name} debugs ${student.name}'s code on ${subject}`);
   }
 }
