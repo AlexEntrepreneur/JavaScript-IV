@@ -25,6 +25,20 @@ class Instructor extends Person {
   grade(student, subject) {
     console.log(`${student.name} receives a perfect score on ${subject}`);
   }
+  changeGrade(student) {
+    let random = (Math.floor((Math.random()*2)+1));
+    if (random <= 1 && student.grade < 70) {
+      student.grade -= 5;
+      return `${student.name}'s grade changed to ${student.grade}`;
+    }
+    else if(random > 1 && student.grade < 70) {
+      student.grade += 5;
+      return `${student.name}'s grade changed to ${student.grade}`;
+    }
+    else {
+      return `${student.name} has already graduated!`;
+    }
+  }
 }
 
 class Student extends Person {
@@ -33,9 +47,11 @@ class Student extends Person {
     this.previousBackground = attributes.previousBackground;
     this.className = attributes.className;
     this.favSubjects = attributes.favSubjects;
+    this.grade = attributes.grade || 50;
+    this.graduated = attributes.graduated || false;
   }
   listsSubjects() {
-    for (var i = 0; i < this.favSubjects.length; i++) {
+    for (let i = 0; i < this.favSubjects.length; i++) {
       console.log(this.favSubjects[i]);
     }
   }
@@ -44,6 +60,15 @@ class Student extends Person {
   }
   sprintChallenge(subject) {
     console.log(`${this.name} has begun sprint challenge on ${subject}`);
+  }
+  graduate() {
+    if (this.grade >= 70) {
+      this.graduated = true;
+      return `You champion! You've done it, you've graduated!`;
+    }
+    else {
+      return `Keep trying, you're almost there!`;
+    }
   }
 }
 
